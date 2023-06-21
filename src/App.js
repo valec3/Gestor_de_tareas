@@ -1,11 +1,11 @@
 import './App.css';
-import ListaTrello from './componentes/ListaTrello';
+import ListaTarea from './componentes/ListaTarea';
 
 function App() {
   return (
     <div className="App">
-      <h1>Gestor de tareas</h1>
-      <ListaTrello></ListaTrello>
+      <h1>Zen Task</h1>
+      <ListaTarea></ListaTarea>
     </div>
   );
 }
