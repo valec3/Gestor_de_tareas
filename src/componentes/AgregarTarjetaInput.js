@@ -1,24 +1,38 @@
-import { Button, IconButton, InputBase, Paper, fade, makeStyles } from '@material-ui/core'
+import { Button, IconButton, InputBase, Paper, alpha, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import ClearIcon from "@material-ui/icons/Clear"
 //-------------------------------------------
-const AgregarTarjetaInput = () => {
+const AgregarTarjetaInput = ({type,setOpen}) => {
     const [titulo,setTitle] = useState("");
     const clases = useStyles();
     return (
         <>
             <Paper className={clases.tarjetaInp}>
-                <InputBase 
+                <InputBase className={clases.texto}
                 value={titulo} 
                 multiline
-                placeholder='Ingrese el nombre de su tarea'
+                //onBlur={()=>{setOpen(false)}}
+                placeholder={
+                    type === "tarjeta"
+                        ? 'Ingrese el nombre de su tarea...'
+                        : 'Ingrese el nombre de su lista...'
+                }
+
                 onChange={event=>setTitle(event.target.value)}
                 inputProps={{className: clases.input}}
                 />
             </Paper>
             <div className={clases.aceptar}>
-                <Button className={clases.btnAceptar}>Agregar tarjeta</Button>  
-                <IconButton style={{color:"#fff", fontWeight:"bold",padding:"10px"}}>
+                <Button className={clases.btnAceptar}>
+                    {type === "tarjeta"
+                        ?"Agregar tarea"
+                        :"Agregar lista"}
+                    
+                </Button>  
+                <IconButton 
+                    style={{color:"#fff", fontWeight:"bold",padding:"10px"}}
+                    onClick={()=>setOpen(false)}
+                    >
                     <ClearIcon/>
                 </IconButton>
             </div>
@@ -29,17 +43,18 @@ const AgregarTarjetaInput = () => {
 // S T Y L E S
 const useStyles = makeStyles(theme => ({
     tarjetaInp: {
-        paddingBottom:theme.spacing(4),
+        paddingBottom: theme.spacing(4),
         color: "white",
         border: "2px solid #f281d8",
     },
     input:{
+        padding:theme.spacing(0.5),
         textAlign: "center",
         color: "blue"
     },
     aceptar:{
         display: "flex",
-        paddin:theme.spacing(0.5),
+        padding:theme.spacing(0.5),
         flexDirection: "flex-start",
     },
     btnAceptar:{
@@ -50,9 +65,13 @@ const useStyles = makeStyles(theme => ({
         fontWeight: "bold",
         "&:hover":{
             color: "#000",
-            backgroundColor:fade("#fff",0.45)
+            backgroundColor:alpha("#fff",0.45)
         
         }
+    },
+    texto:{
+        width: "100%",
+        height:"100%"
     }
 }))
   // --------------------

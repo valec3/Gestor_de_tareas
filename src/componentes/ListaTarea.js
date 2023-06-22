@@ -7,25 +7,28 @@ import AgregarTarjeta from './AgregarTarjeta';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const ListaTrello = () => {
+const ListaTrello = ({lista}) => {
     const clases = useStyles();
     return (
 
         <Paper className={clases.root}>
             <CssBaseline/>  
             <ListaTitulo/>
-            <TarjetaLista/>
-            <TarjetaLista/>
-            <TarjetaLista/>
-            <TarjetaLista/>
-            <AgregarTarjeta/>
+                {
+                    lista.tarjetas.map(tarj => <TarjetaLista tarjeta={tarj} key={tarj.id} /> )
+                }
+            
+            {/* <TarjetaLista/>
+            <TarjetaLista/> */}
+
+            <AgregarTarjeta type="tarjeta"/>
         </Paper>
     )
 }
 
 const useStyles = makeStyles(theme => ({
     root:{
-        width : "300px",
+        minWidth : "300px",
         fontWeight: "bold",
         borderRadius: '8px',
         boxShadow: '10px 10px 20px -1px rgba(179,173,179,1)',

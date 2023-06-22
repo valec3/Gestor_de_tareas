@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
-import { Collapse,  makeStyles,Typography,Paper, fade, } from '@material-ui/core'
+import { Collapse,  makeStyles,Typography,Paper, alpha, } from '@material-ui/core'
 import AgregarTarjetaInput from './AgregarTarjetaInput';
 
-const AgregarTarjeta = () => {
+const AgregarTarjeta = ({type}) => {
   const clases = useStyles();
   const [open,setOpen] = useState(true);
   return (
     <div className={clases.root}>
           <Collapse in={open}>
-              <h3>Agregar tarea</h3>
-              <AgregarTarjetaInput/>
+              {/* <h3>Agregar tarea</h3> */}
+              <AgregarTarjetaInput type={type} setOpen={setOpen}/>
           </Collapse>
           
           <Collapse in={!open}>
-              <Paper className={clases.agregarCardInput}>
+              <Paper className={clases.agregarCardInput} onClick={()=>setOpen(true)}>
                 <Typography>
-                  + Agregar tarjeta
+                  {
+                    type === "tarjeta"
+                      ? "+ Agregar tarea"
+                      : "+ Agregar lista"
+                  }
                 </Typography>
               </Paper>
           </Collapse>
@@ -26,13 +30,17 @@ const AgregarTarjeta = () => {
 // S T Y L E S
 const useStyles = makeStyles(theme => ({
   root: {
-      padding: theme.spacing(1),
+      minWidth : "240px", //OJO----------------
+      // padding: theme.spacing(1),
+      margin:"16px 10px"
     },
   agregarCardInput:{
-      padding : theme.spacing(1.4,1),
+      width:"100% ",
+      cursor:"pointer",
+      padding : theme.spacing(0.8),
       background: "#f181d8",
       "&:hover":{
-        backgroundColor:fade("#fff",0.25)
+        backgroundColor:alpha("#fff",0.25)
       }
   }
 }))

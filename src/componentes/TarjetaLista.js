@@ -1,11 +1,12 @@
 import React from 'react'
 import { Paper, makeStyles } from '@material-ui/core';
 
-const TarjetaLista = () => {
+const TarjetaLista = ({tarjeta}) => {
   const clases = useStyles();
+  console.log(tarjeta)
   return (
     <Paper className={clases.tarjetaLista}>
-        Tarjeta
+        {tarjeta.titulo}
     </Paper>
   )
 }
