@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Collapse,  makeStyles,Typography,Paper, alpha, } from '@material-ui/core'
 import AgregarTarjetaInput from './AgregarTarjetaInput';
 
-const AgregarTarjeta = ({type}) => {
+const AgregarTarjeta = ({type,listId}) => {
   const clases = useStyles();
   const [open,setOpen] = useState(true);
   return (
     <div className={clases.root}>
           <Collapse in={open}>
               {/* <h3>Agregar tarea</h3> */}
-              <AgregarTarjetaInput type={type} setOpen={setOpen}/>
+              <AgregarTarjetaInput type={type} setOpen={setOpen} listId={listId}/>
           </Collapse>
           
           <Collapse in={!open}>

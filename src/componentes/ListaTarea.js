@@ -21,7 +21,7 @@ const ListaTrello = ({lista}) => {
             {/* <TarjetaLista/>
             <TarjetaLista/> */}
 
-            <AgregarTarjeta type="tarjeta"/>
+            <AgregarTarjeta type="tarjeta" listId={lista.id}/>
         </Paper>
     )
 }

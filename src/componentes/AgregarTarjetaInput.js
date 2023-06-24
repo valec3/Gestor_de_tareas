@@ -1,10 +1,23 @@
 import { Button, IconButton, InputBase, Paper, alpha, makeStyles } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ClearIcon from "@material-ui/icons/Clear"
+import ContextAPI from '../ContextAPI';
+
+
 //-------------------------------------------
-const AgregarTarjetaInput = ({type,setOpen}) => {
+const AgregarTarjetaInput = ({type,setOpen,listId}) => {
     const [titulo,setTitle] = useState("");
     const clases = useStyles();
+    const {addCard,addList}=useContext(ContextAPI)
+
+    const handleAddCard = ()=>{
+        if(type==="tarjeta"){
+            addCard(titulo,listId);
+        } else{
+            addList(titulo);
+        }
+        setTitle("");
+    }
     return (
         <>
             <Paper className={clases.tarjetaInp}>
@@ -23,7 +36,7 @@ const AgregarTarjetaInput = ({type,setOpen}) => {
                 />
             </Paper>
             <div className={clases.aceptar}>
-                <Button className={clases.btnAceptar}>
+                <Button className={clases.btnAceptar} onClick={handleAddCard}>
                     {type === "tarjeta"
                         ?"Agregar tarea"
                         :"Agregar lista"}

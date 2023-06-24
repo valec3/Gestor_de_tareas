@@ -7,6 +7,8 @@ import dataTest from "./mockdata.js"
 import { useState } from 'react';
 import ContextAPI from "./ContextAPI.js";
 
+import uuid from 'react-uuid';
+
 // Importar img BG
 // import bgImg from "./img/bg.jpg";
 
@@ -14,6 +16,7 @@ function App() {
   const [data,setData] = useState(dataTest);
   // console.log(data.listas);
 
+  // Funciones para actualizar valores de entrada por el usuario
   const updateListTitle = (titulo,id)=>{
     const lista = data.listas[id];
     lista.titulo = titulo;
@@ -27,8 +30,44 @@ function App() {
     )
   }
 
+
+const addCard=(titulo,listId)=>{
+    const newCardId=uuid(); //ID unico
+    const newCard={
+      id:newCardId,
+      titulo:titulo
+    }
+
+    // Agregar la nueva tarea a la lista
+    const lista = data.listas[listId];
+    lista.tarjetas=[...lista.tarjetas,newCard];
+    // Actualizar datos 
+    setData({
+      ...data,
+      listas:{
+        ...data.listas,
+        [listId]:lista
+      }
+    })
+}
+const addList=(titulo)=>{
+  const newListId=uuid();
+  setData({
+    listasIds:[...data.listasIds,newListId],
+    listas:{
+      ...data.listas,
+      [newListId]:{
+        id:newListId,
+        titulo:titulo,
+        tarjetas:[]
+      }
+    }
+  })
+}
+
+
   return (
-    <ContextAPI.Provider value = {{updateListTitle}}>
+    <ContextAPI.Provider value = {{updateListTitle,addCard,addList}}>
 
     <div className="App">
         <h1>Zen Task</h1>
