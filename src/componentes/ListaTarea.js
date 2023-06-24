@@ -5,24 +5,43 @@ import TarjetaLista from './TarjetaLista';
 import AgregarTarjeta from './AgregarTarjeta';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 
-const ListaTrello = ({lista}) => {
+const ListaTarea = ({lista,index}) => {
     const clases = useStyles();
+    console.log("lista",lista.id)
     return (
+        <Draggable draggableId={lista.id} index={index} >
+            {
+                (provided) => (
+                    <div ref={provided.innerRef}
+                        {...provided.draggableProps} 
+                        {...provided.dragHandleProps}
+                    >
+                        <Paper className={clases.root}>
+                            <CssBaseline/>   
+                            <ListaTitulo titulo={lista.titulo} id={lista.id}/>
+                            <Droppable droppableId={lista.id} >
+                                {
+                                    (provided)=>(
+                                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                                            {
+                                                lista.tarjetas.map((tarjeta,index) => 
+                                                (<TarjetaLista tarjeta={tarjeta} key={tarjeta.id} index={index} />) )
+                                            }
 
-        <Paper className={clases.root}>
-            <CssBaseline/>  
-            <ListaTitulo titulo={lista.titulo} id={lista.id}/>
-                {
-                    lista.tarjetas.map(tarj => <TarjetaLista tarjeta={tarj} key={tarj.id} /> )
-                }
-            
-            {/* <TarjetaLista/>
-            <TarjetaLista/> */}
-
-            <AgregarTarjeta type="tarjeta" listId={lista.id}/>
-        </Paper>
+                                            {provided.placeholder}
+                                        </div>
+                                    )
+                                }
+                            </Droppable>
+                            <AgregarTarjeta type="tarjeta" listId={lista.id}/>
+                        </Paper>
+                    </div>
+                )
+            }
+        </Draggable>
     )
 }
 
@@ -40,4 +59,4 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default ListaTrello
+export default ListaTarea

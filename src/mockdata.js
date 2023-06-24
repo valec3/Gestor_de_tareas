@@ -1,29 +1,29 @@
 const mockData = {
     listas:{
-        "01":{
-            id:"01",
-            titulo:'Prioritarios',
+        "01list":{
+            id:"01list",
+            titulo:'IMPORTANTE',
             tarjetas: [
                 {
-                    id:"01tarj",
+                    id:"01tarjeta",
                     titulo:"Revisar emails"
                 },
                 {
-                    id:"02tarj",
+                    id:"02tarjeta",
                     titulo:"Enviar emails"
                 },
                 {
-                    id:"03tarj",
+                    id:"03tarjeta",
                     titulo:"Recoger pedidos"
                 }
             ]
         },
-        "02":{
-            id:"02",
-            titulo:"Relevantes",
+        "02list":{
+            id:"02list",
+            titulo:"SIn Importancia",
             tarjetas: []
         }
     },
-    listasIds: ["01","02"]
+    listasIds: ["01list","02list"]
 }
 export default mockData

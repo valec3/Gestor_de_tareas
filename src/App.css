@@ -10,7 +10,7 @@
 .App>h1{
     text-align: center;
 }
-.App>div {
+.App__main {
     display: flex;
     /* min-height: 92vh; */
 }
