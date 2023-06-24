@@ -13,7 +13,7 @@ const ListaTrello = ({lista}) => {
 
         <Paper className={clases.root}>
             <CssBaseline/>  
-            <ListaTitulo/>
+            <ListaTitulo titulo={lista.titulo} id={lista.id}/>
                 {
                     lista.tarjetas.map(tarj => <TarjetaLista tarjeta={tarj} key={tarj.id} /> )
                 }

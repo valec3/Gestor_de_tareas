@@ -3,7 +3,7 @@ import { Paper, makeStyles } from '@material-ui/core';
 
 const TarjetaLista = ({tarjeta}) => {
   const clases = useStyles();
-  console.log(tarjeta)
+  // console.log(tarjeta)
   return (
     <Paper className={clases.tarjetaLista}>
         {tarjeta.titulo}
