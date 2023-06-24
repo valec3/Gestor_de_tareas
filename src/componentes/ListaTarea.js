@@ -5,12 +5,12 @@ import TarjetaLista from './TarjetaLista';
 import AgregarTarjeta from './AgregarTarjeta';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
+import {StrictModeDroppable as Droppable} from "../helps/StrictModeDroppable"
 
 
 const ListaTarea = ({lista,index}) => {
     const clases = useStyles();
-    console.log("lista",lista.id)
     return (
         <Draggable draggableId={lista.id} index={index} >
             {

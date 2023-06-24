@@ -14,7 +14,6 @@ const ListaTitulo = ({titulo, id}) => {
 
     }
     
-    console.log(nuevoTitulo)
     return (
         <>
             {

@@ -5,7 +5,6 @@ import { Draggable } from 'react-beautiful-dnd';
 
 const TarjetaLista = ({tarjeta,index}) => {
   const clases = useStyles();
-  console.log(tarjeta.id,index)
   return (
     <Draggable draggableId={tarjeta.id} index={index}>
       {

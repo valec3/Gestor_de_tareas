@@ -8,10 +8,14 @@ import { useState } from 'react';
 import ContextAPI from "./ContextAPI.js";
 
 import uuid from 'react-uuid';
-import { DragDropContext,Droppable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
+import {StrictModeDroppable as Droppable} from "./helps/StrictModeDroppable"
 
 // Importar img BG
 // import bgImg from "./img/bg.jpg";
+
+// 
+
 
 function App() {
   const [data,setData] = useState(mockData);
@@ -67,7 +71,26 @@ function App() {
   }
 
   const onDragEnd=(result)=>{
-    const {destination,source,droppableId,type}=result;
+    const {destination, destination:{droppableId: desDroppableId,index:desIndex} ,
+        source, source:{droppableId: sourceDroppableId,index: sourceIndex},
+        draggableId,type}
+        =result;
+    console.table([{
+      sourceDroppableId,
+      desDroppableId,
+      draggableId
+    },
+    {
+      type,
+      sourceIndex,
+      desIndex
+    }])
+
+    // Sin destino
+    if(!destination){
+      return;
+    }
+
   }
 
 
