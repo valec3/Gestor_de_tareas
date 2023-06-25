@@ -15,7 +15,10 @@ const TarjetaLista = ({tarjeta,index}) => {
             {...provided.draggableProps}
           >
             <Paper className={clases.tarjetaLista}>
-                {tarjeta.titulo}
+                <p>
+                  {tarjeta.titulo}
+
+                </p>
             </Paper>
           </div>
         )
@@ -31,6 +34,8 @@ const useStyles = makeStyles(theme => ({
   tarjetaLista: {
       padding: theme.spacing(1,2),
       margin: theme.spacing(1),
+      maxWidth:"300px",
+      overflow:"auto",
   }
 }))
 // --------------------

@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     input:{
         padding:theme.spacing(0.5),
         textAlign: "center",
-        color: "blue"
+        color: "blue",
     },
     aceptar:{
         display: "flex",

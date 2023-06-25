@@ -17,9 +17,9 @@ const ListaTarea = ({lista,index}) => {
                 (provided) => (
                     <div ref={provided.innerRef}
                         {...provided.draggableProps} 
-                        {...provided.dragHandleProps}
+                        
                     >
-                        <Paper className={clases.root}>
+                        <Paper className={clases.root} {...provided.dragHandleProps}>
                             <CssBaseline/>   
                             <ListaTitulo titulo={lista.titulo} id={lista.id}/>
                             <Droppable droppableId={lista.id} >

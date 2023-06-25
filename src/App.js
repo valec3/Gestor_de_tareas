@@ -4,28 +4,43 @@ import ListaTarea from './componentes/ListaTarea';
 import AgregarTarjeta from './componentes/AgregarTarjeta';
 
 import mockData from "./mockdata.js"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContextAPI from "./ContextAPI.js";
+import { useLocalStorage } from './useLocalStorage';
 
 import uuid from 'react-uuid';
 import { DragDropContext } from 'react-beautiful-dnd';
 import {StrictModeDroppable as Droppable} from "./helps/StrictModeDroppable"
 
-// Importar img BG
-// import bgImg from "./img/bg.jpg";
+function App() {
+  const [data, setData] = useState(mockData);
+  // localStorage.clear();
 
+  // 
+  const updateData = (newData) => {
+    
+    if (newData !== undefined && newData !== null) {
+      setData(newData);
+      localStorage.setItem('data', JSON.stringify(newData));
+    }
+  };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('data');
+    if (storedData !== null && storedData !== undefined && storedData !== "undefined") {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+  
+  
 // 
 
-
-function App() {
-  const [data,setData] = useState(mockData);
-  // console.log(data.listas);
 
   // Funciones para actualizar valores de entrada por el usuario
   const updateListTitle = (titulo,id)=>{
     const lista = data.listas[id];
     lista.titulo = titulo;
-    setData(
+    updateData(
       {
         ...data,listas:{
           ...data.listas,
@@ -47,7 +62,7 @@ function App() {
       const lista = data.listas[listId];
       lista.tarjetas=[...lista.tarjetas,newCard];
       // Actualizar datos 
-      setData({
+      updateData({
         ...data,
         listas:{
           ...data.listas,
@@ -57,7 +72,7 @@ function App() {
   }
   const addList=(titulo)=>{
     const newListId=uuid();
-    setData({
+    updateData({
       listasIds:[...data.listasIds,newListId],
       listas:{
         ...data.listas,
@@ -75,22 +90,55 @@ function App() {
         source, source:{droppableId: sourceDroppableId,index: sourceIndex},
         draggableId,type}
         =result;
-    console.table([{
-      sourceDroppableId,
-      desDroppableId,
-      draggableId
-    },
-    {
-      type,
-      sourceIndex,
-      desIndex
-    }])
+    
 
     // Sin destino
     if(!destination){
       return;
     }
+    if (type === "lista"){
+      const nuevaListaIds = data.listasIds;
+      nuevaListaIds.splice(sourceIndex,1);
+      nuevaListaIds.splice(desIndex,0,draggableId);
+      updateData(data)
+      return;
+    }
 
+    const sourceLista= data.listas[sourceDroppableId];
+    const destinoLista = data.listas[desDroppableId];
+    let dragginCard = sourceLista.tarjetas.filter((card) => card.id === draggableId)[0];
+
+    // console.table(
+    //   {
+    //     dragginCard,
+    //     sourceLista,
+    //     destinoLista
+    //   }
+    // )
+
+    if (sourceDroppableId === desDroppableId){
+      sourceLista.tarjetas.splice(sourceIndex,1);
+      destinoLista.tarjetas.splice(desIndex,0,dragginCard);
+      updateData({
+        ...data,
+        listas:{
+          ...data.listas,
+          [sourceLista.id]:destinoLista,
+        }
+      })
+    }
+    else{
+      sourceLista.tarjetas.splice(sourceIndex,1);
+      destinoLista.tarjetas.splice(desIndex,0,dragginCard);
+      updateData({
+        ...data,
+        listas:{
+          ...data.listas,
+          [sourceLista.id]:sourceLista,
+          [destinoLista.id]:destinoLista
+        }
+      })
+    }
   }
 
 
@@ -98,27 +146,28 @@ function App() {
       <ContextAPI.Provider value = {{updateListTitle,addCard,addList}}>
           <div className="App">
               <h1>Zen Task</h1>
+              <div className='App__main'  >
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId='12345'  direction='horizontal'>
+                    <Droppable droppableId='12345' type="lista" direction='horizontal'>
                         {
                           (provided) => (
-                              <div className='App__main'  ref={provided.innerRef} {...provided.droppableProps}>
+                              <div  className='App__Listas' ref={provided.innerRef} {...provided.droppableProps}>
                                   {
                                     data.listasIds.map((listaId,index)=>{
                                       const lista = data.listas[listaId];
                                       return <ListaTarea lista={lista} key ={listaId} index={index}/>;
                                     })
                                   }
-                                  <div>
-                                    <AgregarTarjeta type="lista"/>
-                                    {provided.placeholder}
-
-                                  </div>
+                                  {provided.placeholder}
                               </div>
                           )
                         }
                     </Droppable>
                 </DragDropContext>
+                <div>
+                  <AgregarTarjeta type="lista"/>
+                </div>
+                </div>
           </div> 
       </ContextAPI.Provider>
     );

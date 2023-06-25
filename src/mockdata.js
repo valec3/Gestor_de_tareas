@@ -2,7 +2,7 @@ const mockData = {
     listas:{
         "01list":{
             id:"01list",
-            titulo:'IMPORTANTE',
+            titulo:'En progreso',
             tarjetas: [
                 {
                     id:"01tarjeta",
@@ -10,7 +10,7 @@ const mockData = {
                 },
                 {
                     id:"02tarjeta",
-                    titulo:"Enviar emails"
+                    titulo:"Estudiar para el examen"
                 },
                 {
                     id:"03tarjeta",
@@ -20,7 +20,7 @@ const mockData = {
         },
         "02list":{
             id:"02list",
-            titulo:"SIn Importancia",
+            titulo:"Pendientes",
             tarjetas: []
         }
     },
