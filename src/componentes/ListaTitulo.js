@@ -48,11 +48,11 @@ const useStyles = makeStyles(theme => ({
     },
     tituloTexto:{
         fontWeight: "bold",
-        fontSize: "1rem",
+        fontSize: "1.2rem",
     },
     inputTitulo:{
         fontWeight: "bold",
-        fontSize: "0.7rem",
+        fontSize: "1rem",
         padding: theme.spacing(0.5,1),
         margin: theme.spacing(0.5),
         "&:focus":{

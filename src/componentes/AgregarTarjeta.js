@@ -4,7 +4,7 @@ import AgregarTarjetaInput from './AgregarTarjetaInput';
 
 const AgregarTarjeta = ({type,listId}) => {
   const clases = useStyles();
-  const [open,setOpen] = useState(true);
+  const [open,setOpen] = useState(false);
   return (
     <div className={clases.root}>
           <Collapse in={open}>
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
       margin:"16px 10px"
     },
   agregarCardInput:{
-      width:"100% ",
+      Width:"300px",
       cursor:"pointer",
       padding : theme.spacing(0.8),
       background: "#f181d8",

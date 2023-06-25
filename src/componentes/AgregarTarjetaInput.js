@@ -43,7 +43,7 @@ const AgregarTarjetaInput = ({type,setOpen,listId}) => {
                     
                 </Button>  
                 <IconButton 
-                    style={{color:"#fff", fontWeight:"bold",padding:"10px"}}
+                    style={{color:"#000", fontWeight:"bold",padding:"10px"}}
                     onClick={()=>setOpen(false)}
                     >
                     <ClearIcon/>

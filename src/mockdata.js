@@ -20,7 +20,7 @@ const mockData = {
         },
         "02list":{
             id:"02list",
-            titulo:"Pendientes",
+            titulo:"Terminado",
             tarjetas: []
         }
     },

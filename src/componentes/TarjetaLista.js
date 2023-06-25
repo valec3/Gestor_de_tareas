@@ -17,7 +17,6 @@ const TarjetaLista = ({tarjeta,index}) => {
             <Paper className={clases.tarjetaLista}>
                 <p>
                   {tarjeta.titulo}
-
                 </p>
             </Paper>
           </div>
@@ -34,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   tarjetaLista: {
       padding: theme.spacing(1,2),
       margin: theme.spacing(1),
+      Width:"300px",
       maxWidth:"300px",
       overflow:"auto",
   }

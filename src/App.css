@@ -9,6 +9,7 @@
 }
 .App>h1{
     text-align: center;
+    font-size: 36px;
 }
 .App__main {
     display: flex;
