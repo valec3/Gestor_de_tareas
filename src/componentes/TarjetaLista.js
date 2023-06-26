@@ -1,10 +1,13 @@
 import React from 'react'
-import { Paper, makeStyles } from '@material-ui/core';
-
+import { IconButton, Paper, alpha, makeStyles } from '@material-ui/core';
 import { Draggable } from 'react-beautiful-dnd';
 
-const TarjetaLista = ({tarjeta,index}) => {
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+
+const TarjetaLista = ({tarjeta,index,lista,updateData,data}) => {
   const clases = useStyles();
+  const idCard = tarjeta.id;
   return (
     <Draggable draggableId={tarjeta.id} index={index}>
       {
@@ -18,6 +21,24 @@ const TarjetaLista = ({tarjeta,index}) => {
                 <p>
                   {tarjeta.titulo}
                 </p>
+                <IconButton
+                    style={{color:"rgb(243 8 73)", fontSize:"medium",padding:"10px","&:hover":{
+                      backgroundColor:alpha("#485",0.25)
+                    }}}
+                    onClick={()=>{
+                      lista.tarjetas.splice(index,1)
+                      updateData({
+                        ...data,
+                        listas:{
+                          ...data.listas,
+                        }
+                      })
+                    }}
+                    
+                    >
+                  <HighlightOffIcon/>
+                </IconButton>
+
             </Paper>
           </div>
         )
@@ -31,6 +52,9 @@ const TarjetaLista = ({tarjeta,index}) => {
 // S T Y L E S
 const useStyles = makeStyles(theme => ({
   tarjetaLista: {
+      display:"flex",
+      justifyContent:"space-between",
+      alignItems:"center",
       padding: theme.spacing(1,2),
       margin: theme.spacing(1),
       Width:"300px",

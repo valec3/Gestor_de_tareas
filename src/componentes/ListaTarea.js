@@ -9,7 +9,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import {StrictModeDroppable as Droppable} from "../helps/StrictModeDroppable"
 
 
-const ListaTarea = ({lista,index}) => {
+const ListaTarea = ({lista,index,updateData,data}) => {
     const clases = useStyles();
     return (
         <Draggable draggableId={lista.id} index={index} >
@@ -28,7 +28,14 @@ const ListaTarea = ({lista,index}) => {
                                         <div {...provided.droppableProps} ref={provided.innerRef}>
                                             {
                                                 lista.tarjetas.map((tarjeta,index) => 
-                                                (<TarjetaLista tarjeta={tarjeta} key={tarjeta.id} index={index} />) )
+                                                (<TarjetaLista 
+                                                    tarjeta={tarjeta} 
+                                                    key={tarjeta.id} 
+                                                    index={index} 
+                                                    lista={lista} 
+                                                    updateData={updateData}
+                                                    data={data} 
+                                                    />) )
                                             }
 
                                             {provided.placeholder}

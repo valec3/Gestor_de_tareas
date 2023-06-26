@@ -6,14 +6,17 @@ import AgregarTarjeta from './componentes/AgregarTarjeta';
 import mockData from "./mockdata.js"
 import { useEffect, useState } from 'react';
 import ContextAPI from "./ContextAPI.js";
-import { useLocalStorage } from './useLocalStorage';
+// import { useLocalStorage } from './useLocalStorage';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 import uuid from 'react-uuid';
 import { DragDropContext } from 'react-beautiful-dnd';
 import {StrictModeDroppable as Droppable} from "./helps/StrictModeDroppable"
+import { IconButton } from '@material-ui/core';
 
 function App() {
   const [data, setData] = useState(mockData);
+  
   // localStorage.clear();
 
   // 
@@ -28,6 +31,7 @@ function App() {
   useEffect(() => {
     const storedData = localStorage.getItem('data');
     if (storedData !== null && storedData !== undefined && storedData !== "undefined") {
+      // localStorage.setItem("data",JSON.stringify(data))
       setData(JSON.parse(storedData));
     }
   }, []);
@@ -145,7 +149,18 @@ function App() {
   return (
       <ContextAPI.Provider value = {{updateListTitle,addCard,addList}}>
           <div className="App">
-              <h1>Zen Task</h1>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                  <IconButton style={{color:"red"}} 
+                    onClick={()=>{
+                      localStorage.clear();
+                      window.location.replace('')
+                  }} >
+                    <RefreshIcon  fontSize='large'/>
+                  </IconButton>
+                <h1>Zen Task</h1>
+                  <div></div>
+              </div>
+
               <div className='App__main'  >
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId='12345' type="lista" direction='horizontal'>
@@ -155,7 +170,7 @@ function App() {
                                   {
                                     data.listasIds.map((listaId,index)=>{
                                       const lista = data.listas[listaId];
-                                      return <ListaTarea lista={lista} key ={listaId} index={index}/>;
+                                      return <ListaTarea lista={lista} key ={listaId} index={index} updateData={updateData	} data={data}/>;
                                     })
                                   }
                                   {provided.placeholder}

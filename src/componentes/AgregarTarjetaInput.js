@@ -4,6 +4,7 @@ import ClearIcon from "@material-ui/icons/Clear"
 import ContextAPI from '../ContextAPI';
 
 
+
 //-------------------------------------------
 const AgregarTarjetaInput = ({type,setOpen,listId}) => {
     const [titulo,setTitle] = useState("");
